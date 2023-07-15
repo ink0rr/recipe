@@ -30,10 +30,10 @@
 </script>
 
 <svelte:window
-  on:mousemove={({ pageX, pageY }) => {
+  on:mousemove={({ clientX, clientY }) => {
     $mouse = {
-      x: pageX,
-      y: pageY,
+      x: clientX,
+      y: clientY,
     };
   }}
 />

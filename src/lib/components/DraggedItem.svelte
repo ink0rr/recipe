@@ -8,7 +8,7 @@
 
 {#if texture}
   <div
-    class="pointer-events-none absolute z-[1] select-none"
+    class="pointer-events-none fixed z-[1] select-none"
     style:left={`${$mouse.x - 24}px`}
     style:top={`${$mouse.y - 24}px`}
   >
