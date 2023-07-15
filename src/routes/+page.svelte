@@ -47,8 +47,7 @@
   class="container mx-auto flex max-w-screen-lg flex-row-reverse flex-wrap justify-between gap-4 p-4"
 >
   <!-- Recipe -->
-  <!-- TODO: Remove this -->
-  <div class="max-w-lg flex-1">
+  <div class="flex-1">
     <div class="flex flex-col gap-y-2">
       <Section title="Recipe">
         <div class="p-4">
