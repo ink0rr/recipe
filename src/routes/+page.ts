@@ -1,6 +1,6 @@
 import type { PageLoad } from "./$types";
 
-export const load: PageLoad = async ({ fetch, url }) => {
+export const load: PageLoad = async ({ url }) => {
   return {
     searchParams: url.searchParams,
   };
