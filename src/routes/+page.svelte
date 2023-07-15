@@ -7,26 +7,24 @@
   import RecipeArea from "$lib/components/RecipeArea.svelte";
   import Scrollable from "$lib/components/Scrollable.svelte";
   import Section from "$lib/components/Section.svelte";
-  import { getRecipeParams, getSearchParams } from "$lib/core/params";
   import { createRecipe } from "$lib/core/recipe/createRecipe";
+  import { serializeState } from "$lib/core/state";
   import { customItems } from "$lib/stores/customItems";
   import { mouse } from "$lib/stores/mouse";
   import { vanillaItems } from "$lib/vanillaItems";
   import { Alert, ButtonGroup, Input, InputAddon, Label, Search, Select } from "flowbite-svelte";
   import type { PageData } from "./$types";
-  import SerdeTest from "$lib/components/SerdeTest.svelte";
 
   export let data: PageData;
 
   let searchQuery = "";
-
   $: items = Object.keys($customItems).concat(Object.keys(vanillaItems));
   $: inventory = items.filter((item) => item.toLowerCase().includes(searchQuery.toLowerCase()));
 
-  let recipe = getRecipeParams(data.searchParams);
+  const recipe = data.recipe;
   $: result = createRecipe(recipe);
   $: if (browser) {
-    goto(`/?${getSearchParams(recipe)}`, { noScroll: true });
+    goto(`/?recipe=${serializeState(recipe)}`, { noScroll: true });
   }
 </script>
 
@@ -40,8 +38,6 @@
 />
 
 <DraggedItem />
-
-<SerdeTest {recipe} />
 
 <div
   class="container mx-auto flex max-w-screen-lg flex-row-reverse flex-wrap justify-between gap-4 p-4"

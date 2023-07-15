@@ -1,5 +1,6 @@
 import type { Recipe, RecipeItem } from "../../types/recipe";
 import { getRecipeItem } from "../../utils/getRecipeItem";
+import type { RecipeState } from "../state";
 
 function findKey<T>(object: T, predicate: (value: T[keyof T]) => boolean) {
   for (const key in object) {
@@ -10,7 +11,7 @@ function findKey<T>(object: T, predicate: (value: T[keyof T]) => boolean) {
   return undefined;
 }
 
-export function recipeShaped(input: string[], output: string, exact = false): Recipe {
+export function recipeShaped({ type, input, output }: RecipeState): Recipe {
   const patternKeys = [..."#ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
   const key: Record<string, RecipeItem> = {};
   const grid = [
@@ -35,7 +36,7 @@ export function recipeShaped(input: string[], output: string, exact = false): Re
   let pattern = grid.map((s) => s.join(""));
 
   // Remove extra spaces
-  if (!exact) {
+  if (type === "shaped_exact") {
     const min: number[] = [];
     const max: number[] = [];
     for (const s of pattern) {

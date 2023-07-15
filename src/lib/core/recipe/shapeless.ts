@@ -1,7 +1,8 @@
 import type { Recipe, RecipeItem } from "../../types/recipe";
 import { getRecipeItem } from "../../utils/getRecipeItem";
+import type { RecipeState } from "../state";
 
-export function recipeShapeless(input: string[], output: string): Recipe {
+export function recipeShapeless({ input, output }: RecipeState): Recipe {
   const ingredients: RecipeItem[] = [];
 
   for (const id of input) {

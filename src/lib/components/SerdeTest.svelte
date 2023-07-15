@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getSearchParams, type RecipeParams } from "$lib/core/params";
-  import { serializeState } from "$lib/core/serde";
+  import { serializeState } from "$lib/core/state";
   import Section from "./Section.svelte";
 
   export let recipe: RecipeParams;
