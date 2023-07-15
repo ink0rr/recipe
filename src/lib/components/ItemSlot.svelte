@@ -22,7 +22,7 @@
 </script>
 
 <div
-  class="block select-none items-center justify-center border-2 border-solid border-b-white border-l-[#373737] border-r-white border-t-[#373737] bg-[#8A8A8A] hover:bg-[#DDDDDD]"
+  class="flex select-none items-center justify-center border-2 border-solid border-b-white border-l-[#373737] border-r-white border-t-[#373737] bg-[#8A8A8A] hover:bg-[#DDDDDD]"
   style:height={large ? "50px" : "36px"}
   style:width={large ? "50px" : "36px"}
   role="none"
