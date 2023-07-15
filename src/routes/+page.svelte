@@ -7,6 +7,7 @@
   import RecipeArea from "$lib/components/RecipeArea.svelte";
   import Scrollable from "$lib/components/Scrollable.svelte";
   import Section from "$lib/components/Section.svelte";
+  import Tooltip from "$lib/components/Tooltip.svelte";
   import { createRecipe } from "$lib/core/recipe/createRecipe";
   import { serializeState } from "$lib/core/state";
   import { customItems } from "$lib/stores/customItems";
@@ -38,12 +39,13 @@
 />
 
 <DraggedItem />
+<Tooltip />
 
 <div
   class="container mx-auto flex max-w-screen-lg flex-row-reverse flex-wrap justify-between gap-4 p-4"
 >
   <!-- Recipe -->
-  <div class="flex-1">
+  <div class="flex-1 overflow-x-auto">
     <div class="flex flex-col gap-y-2">
       <Section title="Recipe">
         <div class="p-4">
