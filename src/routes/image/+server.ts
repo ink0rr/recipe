@@ -1,13 +1,11 @@
-import { base, assets } from "$app/paths";
 import { getRecipeParams } from "$lib/core/params";
 import { customItems as customItemStore } from "$lib/stores/customItems";
 import { vanillaItems } from "$lib/vanillaItems";
 import type { RequestHandler } from "@sveltejs/kit";
 import { readFile } from "fs/promises";
-import { Image } from "imagescript";
 import { toUint8Array } from "js-base64";
 import { join } from "path";
-import {} from "svelte";
+import sharp from "sharp";
 import { get } from "svelte/store";
 
 export const GET: RequestHandler = async ({ url, setHeaders }) => {
@@ -16,19 +14,17 @@ export const GET: RequestHandler = async ({ url, setHeaders }) => {
   setHeaders({
     "Content-Type": "image/png",
   });
-  return new Response(await image.encode());
+  return new Response(await image.toBuffer());
 };
 
 async function loadImage(path: string) {
   const buffer = await readFile(path);
-  // @ts-expect-error
-  return Image.decode(buffer);
+  return sharp(buffer);
 }
 
 function decodeImage(base64: string) {
   const bytes = toUint8Array(base64.split(",")[1]);
-  // @ts-expect-error
-  return Image.decode(bytes);
+  return sharp(bytes);
 }
 
 async function createRecipeImage(inputs: string[], output: string) {
@@ -36,7 +32,7 @@ async function createRecipeImage(inputs: string[], output: string) {
   const missing = await loadImage(join(process.cwd(), "static", "missing.png"));
 
   const customItems = get(customItemStore);
-  const textures = new Map<string, Image>();
+  const textures = new Map<string, sharp.Sharp>();
 
   const getItemTexture = async (id: string) => {
     if (textures.has(id)) {
@@ -56,8 +52,15 @@ async function createRecipeImage(inputs: string[], output: string) {
   for (const input of inputs) {
     if (input) {
       const image = await getItemTexture(input);
-      image.fit(48, 48);
-      result.composite(image, 6 + x * 54, 6 + y * 54);
+      image.resize(48, 48);
+      // result.composite(image, 6 + x * 54, 6 + y * 54);
+      result.composite([
+        {
+          input: await image.toBuffer(),
+          left: 6 + x * 54,
+          top: 6 + y * 54,
+        },
+      ]);
     }
     if (++x % 3 === 0) {
       x = 0;
@@ -67,8 +70,14 @@ async function createRecipeImage(inputs: string[], output: string) {
 
   if (output) {
     const image = await getItemTexture(output);
-    image.fit(48, 48);
-    result.composite(image, 300, 60);
+    image.resize(48, 48);
+    result.composite([
+      {
+        input: await image.toBuffer(),
+        left: 300,
+        top: 60,
+      },
+    ]);
   }
 
   return result;
