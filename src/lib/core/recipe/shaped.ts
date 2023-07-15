@@ -36,7 +36,7 @@ export function recipeShaped({ type, input, output }: RecipeState): Recipe {
   let pattern = grid.map((s) => s.join(""));
 
   // Remove extra spaces
-  if (type === "shaped_exact") {
+  if (type !== "shaped_exact") {
     const min: number[] = [];
     const max: number[] = [];
     for (const s of pattern) {
