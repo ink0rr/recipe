@@ -3,11 +3,14 @@ import { deflate, inflate } from "pako";
 import { z } from "zod";
 
 export const recipeStateSchema = z.object({
-  type: z.string(),
+  type: z.union([z.literal("crafting"), z.literal("furnace")]),
+  mode: z
+    .union([z.literal("shaped"), z.literal("shaped_exact"), z.literal("shapeless"), z.null()])
+    .default("shaped"),
   identifier: z.string().optional(),
   fileName: z.string().optional(),
   input: z.array(z.string().or(z.null())).default([]),
-  output: z.string().or(z.null()).default(""),
+  output: z.string().or(z.null()).default(null),
 });
 
 export type RecipeState = z.infer<typeof recipeStateSchema>;

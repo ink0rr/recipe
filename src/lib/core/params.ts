@@ -5,14 +5,18 @@ const recipeParamsSchema = z.object({
   type: z.string().optional().default("shaped"),
   input: z
     .string()
-    .transform((value) => decode(value).split(","))
-    .optional()
-    .default(""),
+    .default("")
+    .transform((value) => decode(value).split(",")),
   output: z
     .string()
-    .transform((value) => decode(value))
-    .optional()
-    .default(""),
+    .default("")
+    .transform((value) => {
+      const decoded = decode(value);
+      if (decoded === "") {
+        return null;
+      }
+      return decoded;
+    }),
 });
 
 export type RecipeParams = z.infer<typeof recipeParamsSchema>;
@@ -20,15 +24,4 @@ export type RecipeParams = z.infer<typeof recipeParamsSchema>;
 export function getRecipeParams(searchParams: URLSearchParams): RecipeParams {
   const object = Object.fromEntries(searchParams.entries());
   return recipeParamsSchema.parse(object);
-}
-
-export function getSearchParams(recipeParams: RecipeParams): URLSearchParams {
-  const { type, input, output } = recipeParams;
-  const searchParams = new URLSearchParams({
-    type,
-    input: encode(input.join(",")),
-    output: encode(output ?? ""),
-  });
-
-  return searchParams;
 }

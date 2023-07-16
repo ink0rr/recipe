@@ -12,8 +12,18 @@
   import { serializeState } from "$lib/core/state";
   import { customItems } from "$lib/stores/customItems";
   import { mouse } from "$lib/stores/mouse";
+  import { getItem } from "$lib/utils/getItem";
   import { vanillaItems } from "$lib/vanillaItems";
-  import { Alert, ButtonGroup, Input, InputAddon, Label, Search, Select } from "flowbite-svelte";
+  import {
+    ButtonGroup,
+    Input,
+    InputAddon,
+    Label,
+    Search,
+    Select,
+    TabItem,
+    Tabs,
+  } from "flowbite-svelte";
   import type { PageData } from "./$types";
 
   export let data: PageData;
@@ -23,10 +33,16 @@
   $: inventory = items.filter((item) => item.toLowerCase().includes(searchQuery.toLowerCase()));
 
   const recipe = data.recipe;
-  $: result = createRecipe(recipe);
+
   $: if (browser) {
-    goto(`/?recipe=${serializeState(recipe)}`, { noScroll: true });
+    goto(`/?recipe=${serializeState(recipe)}`, {
+      keepFocus: true,
+      noScroll: true,
+      replaceState: true,
+    });
   }
+
+  $: outputId = getItem(recipe.output)?.identifier;
 </script>
 
 <svelte:window
@@ -48,8 +64,14 @@
   <div class="flex-1 overflow-x-auto">
     <div class="flex flex-col gap-y-2">
       <Section title="Recipe">
-        <div class="p-4">
-          {#if recipe.type.includes("shape")}
+        <Tabs style="underline" contentClass="flex flex-col">
+          <TabItem
+            title="Crafting"
+            open={recipe.type === "crafting"}
+            on:click={() => {
+              recipe.type = "crafting";
+            }}
+          >
             <RecipeArea title="Crafting" bind:output={recipe.output}>
               <div class="grid grid-cols-3 grid-rows-3">
                 {#each [...Array(9).keys()] as i (i)}
@@ -57,24 +79,24 @@
                 {/each}
               </div>
             </RecipeArea>
-          {:else}
-            <Alert>
-              <svg
-                slot="icon"
-                aria-hidden="true"
-                class="h-5 w-5"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-              Furnace recipe is still work in progress.
-            </Alert>
+            <div class="p-4">
+              <Label>
+                Crafting Type
+                <Select class="mt-2" bind:value={recipe.mode}>
+                  <option value="shaped">Shaped</option>
+                  <option value="shaped_exact">Shaped Exact</option>
+                  <option value="shapeless">Shapeless</option>
+                </Select>
+              </Label>
+            </div>
+          </TabItem>
+          <TabItem
+            title="Furnace"
+            open={recipe.type === "furnace"}
+            on:click={() => {
+              recipe.type = "furnace";
+            }}
+          >
             <RecipeArea title="Furnace" centered bind:output={recipe.output}>
               <div class="flex flex-col items-center gap-y-2">
                 <ItemSlot bind:itemId={recipe.input[0]} recipe />
@@ -88,37 +110,31 @@
                 <ItemSlot itemId="charcoal" disabled />
               </div>
             </RecipeArea>
-          {/if}
-        </div>
+          </TabItem>
+        </Tabs>
       </Section>
-      <Section title="Settings">
+      <Section title="Overrides">
         <div class="flex flex-col gap-4 p-4">
           <Label>
             Identifier
             <ButtonGroup class="mt-2 w-full">
-              <Input placeholder={recipe.output ?? "identifier"} />
+              <Input placeholder={outputId ?? "identifier"} bind:value={recipe.identifier} />
             </ButtonGroup>
           </Label>
           <Label>
             File Name
             <ButtonGroup class="mt-2 w-full">
-              <Input placeholder="file_name" />
+              <Input
+                placeholder={outputId?.split(":")[1] ?? "file_name"}
+                bind:value={recipe.fileName}
+              />
               <InputAddon>.json</InputAddon>
             </ButtonGroup>
-          </Label>
-          <Label>
-            Recipe Type
-            <Select class="mt-2" bind:value={recipe.type}>
-              <option value="shaped">Shaped</option>
-              <option value="shaped_exact">Shaped Exact</option>
-              <option value="shapeless">Shapeless</option>
-              <option value="furnace">Furnace</option>
-            </Select>
           </Label>
         </div>
       </Section>
       <Section title="Result">
-        <HighlightJson json={result} />
+        <HighlightJson json={createRecipe(recipe)} />
       </Section>
     </div>
   </div>

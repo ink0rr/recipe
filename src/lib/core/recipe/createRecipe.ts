@@ -4,18 +4,18 @@ import { recipeFurnace } from "./furnace";
 import { recipeShaped } from "./shaped";
 import { recipeShapeless } from "./shapeless";
 
-export function createRecipe(state: RecipeState): Recipe {
-  switch (state.type) {
-    case "shaped":
-      return recipeShaped(state);
-    // TODO: Remove this case
-    case "shaped_exact":
-      return recipeShaped(state);
-    case "shapeless":
-      return recipeShapeless(state);
-    case "furnace":
-      return recipeFurnace(state);
-    default:
-      throw new Error(`Unknown recipe type: ${state.type}`);
+export function createRecipe(recipe: RecipeState): Recipe {
+  if (recipe.type === "crafting") {
+    switch (recipe.mode) {
+      case "shaped":
+        return recipeShaped(recipe);
+      case "shaped_exact":
+        return recipeShaped(recipe);
+      case "shapeless":
+        return recipeShapeless(recipe);
+    }
+  } else if (recipe.type === "furnace") {
+    return recipeFurnace(recipe);
   }
+  throw new Error(`Unknown recipe type: ${recipe.type}`);
 }

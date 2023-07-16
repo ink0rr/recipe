@@ -1,14 +1,15 @@
 import { deserializeState, type RecipeState } from "$lib/core/state";
 import type { PageLoad } from "./$types";
 
-export const load: PageLoad<{ recipe: RecipeState }> = async ({ url }) => {
+export const load = (async ({ url }) => {
   const param = url.searchParams.get("recipe");
   if (!param) {
     return {
       recipe: {
-        type: "shaped",
+        type: "crafting",
+        mode: "shaped",
         input: [],
-        output: "",
+        output: null,
       },
     };
   }
@@ -16,4 +17,4 @@ export const load: PageLoad<{ recipe: RecipeState }> = async ({ url }) => {
   return {
     recipe: deserializeState(param),
   };
-};
+}) satisfies PageLoad<{ recipe: RecipeState }>;

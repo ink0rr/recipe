@@ -11,7 +11,7 @@ function findKey<T>(object: T, predicate: (value: T[keyof T]) => boolean) {
   return undefined;
 }
 
-export function recipeShaped({ type, input, output }: RecipeState): Recipe {
+export function recipeShaped({ mode, input, output, identifier }: RecipeState): Recipe {
   const patternKeys = [..."#ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
   const key: Record<string, RecipeItem> = {};
   const grid = [
@@ -36,7 +36,7 @@ export function recipeShaped({ type, input, output }: RecipeState): Recipe {
   let pattern = grid.map((s) => s.join(""));
 
   // Remove extra spaces
-  if (type !== "shaped_exact") {
+  if (mode !== "shaped_exact") {
     const min: number[] = [];
     const max: number[] = [];
     for (const s of pattern) {
@@ -53,11 +53,14 @@ export function recipeShaped({ type, input, output }: RecipeState): Recipe {
       .filter((s, i) => isNotEmpty(s) || (i === 1 && len === 2));
   }
   const result = getRecipeItem(output, 1);
+  if (!identifier) {
+    identifier = result?.item ?? "unknown";
+  }
   return {
     format_version: "1.12.0",
     "minecraft:recipe_shaped": {
       description: {
-        identifier: result?.item ?? "unknown",
+        identifier,
       },
       tags: ["crafting_table"],
       pattern,
