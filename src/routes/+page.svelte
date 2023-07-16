@@ -64,7 +64,7 @@
   <div class="flex-1 overflow-x-auto">
     <div class="flex flex-col gap-y-2">
       <Section title="Recipe">
-        <Tabs style="underline" contentClass="flex flex-col">
+        <Tabs style="underline" contentClass="flex flex-col p-2">
           <TabItem
             title="Crafting"
             open={recipe.type === "crafting"}
@@ -79,7 +79,7 @@
                 {/each}
               </div>
             </RecipeArea>
-            <div class="p-4">
+            <div class="p-2">
               <Label>
                 Crafting Type
                 <Select class="mt-2" bind:value={recipe.mode}>
