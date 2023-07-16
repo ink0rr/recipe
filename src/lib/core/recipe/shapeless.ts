@@ -2,7 +2,7 @@ import type { Recipe, RecipeItem } from "../../types/recipe";
 import { getRecipeItem } from "../../utils/getRecipeItem";
 import type { RecipeState } from "../state";
 
-export function recipeShapeless({ input, output }: RecipeState): Recipe {
+export function recipeShapeless({ input, output, identifier }: RecipeState): Recipe {
   const ingredients: RecipeItem[] = [];
 
   for (const id of input) {
@@ -19,11 +19,14 @@ export function recipeShapeless({ input, output }: RecipeState): Recipe {
     }
   }
   const result = getRecipeItem(output, 1);
+  if (!identifier) {
+    identifier = result?.item ?? "unknown";
+  }
   return {
     format_version: "1.12.0",
     "minecraft:recipe_shapeless": {
       description: {
-        identifier: result?.item ?? "unknown",
+        identifier,
       },
       tags: ["crafting_table"],
       ingredients,

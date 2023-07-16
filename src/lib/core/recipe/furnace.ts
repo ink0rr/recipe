@@ -12,14 +12,17 @@ function getIdentifier(item?: RecipeItem) {
   return result;
 }
 
-export function recipeFurnace({ input, output }: RecipeState): Recipe {
+export function recipeFurnace({ input, output, identifier }: RecipeState): Recipe {
   const inputItem = getRecipeItem(input[0]);
   const outputItem = getRecipeItem(output, 1);
+  if (!identifier) {
+    identifier = outputItem?.item ?? "unknown";
+  }
   return {
     format_version: "1.12.0",
     "minecraft:recipe_furnace": {
       description: {
-        identifier: getIdentifier(outputItem) ?? "unknown",
+        identifier,
       },
       tags: ["furnace"],
       input: getIdentifier(inputItem),
