@@ -1,4 +1,4 @@
-import { decode, encode } from "js-base64";
+import { decode } from "js-base64";
 import { z } from "zod";
 
 const recipeParamsSchema = z.object({
