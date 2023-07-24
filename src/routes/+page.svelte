@@ -74,7 +74,7 @@
           >
             <RecipeArea title="Crafting" bind:output={recipe.output}>
               <div class="grid grid-cols-3 grid-rows-3">
-                {#each [...Array(9).keys()] as i (i)}
+                {#each Array(9).keys() as i (i)}
                   <ItemSlot bind:itemId={recipe.input[i]} recipe />
                 {/each}
               </div>
