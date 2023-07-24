@@ -16,4 +16,31 @@
   <meta property="og:image" content={`/image${$page.url.search}`} />
 </svelte:head>
 
-<slot />
+<div class="flex h-screen w-screen flex-col">
+  <main class="flex-1">
+    <slot />
+  </main>
+  <footer class="whitespace-nowrap p-4 text-center text-xs text-gray-500">
+    <span>
+      © 2023
+      <a
+        class="underline underline-offset-4 hover:text-black"
+        href="https://github.com/ink0rr"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        ink0rr
+      </a>
+      Powered by
+      <a
+        class="underline underline-offset-4 hover:text-black"
+        href="https://kit.svelte.dev"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        SvelteKit
+      </a>
+    </span>
+    <p class="mt-1">This site is not affiliated with Mojang Studios</p>
+  </footer>
+</div>
