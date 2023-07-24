@@ -8,7 +8,7 @@
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-    "lint": "prettier --plugin-search-dir . --check .",
+    "lint": "prettier --plugin-search-dir . --check . && eslint .",
     "format": "prettier --plugin-search-dir . --write ."
   },
   "devDependencies": {
@@ -16,7 +16,12 @@
     "@sveltejs/kit": "^1.22.3",
     "@types/node": "^20.4.2",
     "@types/pako": "^2.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.1.0",
+    "@typescript-eslint/parser": "^6.1.0",
     "autoprefixer": "^10.4.14",
+    "eslint": "^8.45.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-svelte": "^2.32.4",
     "postcss": "^8.4.26",
     "postcss-load-config": "^4.0.1",
     "prettier": "^2.8.8",
@@ -29,7 +34,6 @@
     "typescript": "^5.1.6",
     "vite": "^4.4.4"
   },
-  "type": "module",
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "flowbite": "^1.7.0",
@@ -40,5 +44,6 @@
     "sharp": "^0.32.3",
     "tailwind-merge": "^1.13.2",
     "zod": "^3.21.4"
-  }
+  },
+  "type": "module"
 }
