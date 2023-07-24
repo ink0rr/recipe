@@ -1,6 +1,6 @@
 <script>
   import { page } from "$app/stores";
-  import "../app.postcss";
+  import "../styles.css";
 </script>
 
 <svelte:head>

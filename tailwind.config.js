@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config}*/
-const config = {
+export default {
   content: [
     "./src/**/*.{html,js,svelte,ts}",
     "./node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}",
@@ -25,5 +25,3 @@ const config = {
     },
   },
 };
-
-module.exports = config;
