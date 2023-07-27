@@ -1,6 +1,7 @@
 <script lang="ts">
   import { browser } from "$app/environment";
   import { goto } from "$app/navigation";
+  import { page } from "$app/stores";
   import DraggedItem from "$lib/components/DraggedItem.svelte";
   import HighlightJson from "$lib/components/HighlightJson.svelte";
   import ItemSlot from "$lib/components/ItemSlot.svelte";
@@ -15,6 +16,7 @@
   import { getItem } from "$lib/utils/getItem";
   import { vanillaItems } from "$lib/vanillaItems";
   import {
+    Button,
     ButtonGroup,
     Input,
     InputAddon,
@@ -131,6 +133,7 @@
               <InputAddon>.json</InputAddon>
             </ButtonGroup>
           </Label>
+          <Button href="/json{$page.url.search}">Download</Button>
         </div>
       </Section>
       <Section title="Result">
