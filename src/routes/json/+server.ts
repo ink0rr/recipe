@@ -6,15 +6,12 @@ export const GET: RequestHandler = async ({ url }) => {
   try {
     const param = url.searchParams.get("recipe")!;
     const recipe = deserializeState(param);
-    const fileName =
-      recipe.fileName ||
-      (recipe.identifier?.replace(/.*:/, "") ?? recipe.output?.replace(/.*:/, "") ?? "recipe");
-
+    recipe.fileName ||= recipe.output?.replace(/.*:/, "") ?? "recipe";
     const data = JSON.stringify(createRecipe(recipe), null, 2) + "\n";
     return new Response(data, {
       headers: {
         "Content-Type": "application/json",
-        "Content-Disposition": `attachment; filename=${fileName}.json`,
+        "Content-Disposition": `attachment; filename=${recipe.fileName}.json`,
       },
     });
   } catch {
