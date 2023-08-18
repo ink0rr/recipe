@@ -16,7 +16,7 @@
   <meta property="og:image" content={`/image${$page.url.search}`} />
 </svelte:head>
 
-<div class="flex h-screen w-screen flex-col">
+<div class="flex min-h-screen flex-col">
   <main class="flex-1">
     <slot />
   </main>
