@@ -129,7 +129,7 @@
           <Button href="/json{$page.url.search}">Download</Button>
         </div>
       </Section>
-      <Section title="Result">
+      <Section title="JSON Preview" collapsible>
         <HighlightJson json={createRecipe(recipe)} />
       </Section>
     </div>
