@@ -16,7 +16,9 @@ export const recipeStateSchema = z.object({
 export type RecipeState = z.infer<typeof recipeStateSchema>;
 
 export function serializeState(state: RecipeState) {
-  const data = new TextEncoder().encode(JSON.stringify(state));
+  const data = new TextEncoder().encode(
+    JSON.stringify(state, (_, value) => (value === "" ? undefined : value))
+  );
   const compressed = deflate(data, { level: 9 });
   return fromUint8Array(compressed, true);
 }
