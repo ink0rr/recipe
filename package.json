@@ -41,6 +41,7 @@
     "js-base64": "^3.7.5",
     "pako": "^2.1.0",
     "sharp": "^0.32.5",
+    "svelte-local-storage-store": "^0.6.0",
     "tailwind-merge": "^1.14.0",
     "zod": "^3.22.1"
   },

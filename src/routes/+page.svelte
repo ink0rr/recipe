@@ -8,6 +8,7 @@
   import ItemSlot from "$lib/components/ItemSlot.svelte";
   import RecipeArea from "$lib/components/RecipeArea.svelte";
   import Section from "$lib/components/Section.svelte";
+  import SettingsModal from "$lib/components/SettingsModal.svelte";
   import Tooltip from "$lib/components/Tooltip.svelte";
   import { createRecipe } from "$lib/core/recipe/createRecipe";
   import { serializeState } from "$lib/core/state";
@@ -126,6 +127,15 @@
               <InputAddon>.json</InputAddon>
             </ButtonGroup>
           </Label>
+          <div class="flex flex-col gap-2">
+            <Label>Share</Label>
+            <ButtonGroup>
+              <Button>Recipe Link</Button>
+              <Button>Recipe Image</Button>
+              <Button>Google Docs</Button>
+              <SettingsModal />
+            </ButtonGroup>
+          </div>
           <Button href="/json{$page.url.search}">Download</Button>
         </div>
       </Section>
