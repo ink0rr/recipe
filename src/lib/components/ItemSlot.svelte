@@ -71,7 +71,7 @@
     <img
       class="pointer-events-none"
       style="image-rendering: pixelated;"
-      src={item.texture}
+      src={item.texture ?? "/missing.png"}
       alt={item.name}
       width="32px"
       height="32px"
