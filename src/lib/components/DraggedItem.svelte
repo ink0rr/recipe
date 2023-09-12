@@ -2,6 +2,7 @@
   import { getItem } from "$lib/utils/getItem";
   import { draggedItem } from "../stores/draggedItem";
   import { mouse } from "../stores/mouse";
+  import Texture from "./Texture.svelte";
 
   $: item = getItem($draggedItem);
 </script>
@@ -12,13 +13,6 @@
     style:left={`${$mouse.x - 24}px`}
     style:top={`${$mouse.y - 24}px`}
   >
-    <img
-      class="pointer-events-none h-[42px] w-[42px] select-none"
-      style="image-rendering: pixelated;"
-      src={item.texture ?? "/missing.png"}
-      alt={$draggedItem}
-      width="42px"
-      height="42px"
-    />
+    <Texture src={item.texture} alt={item.name} width="42px" height="42px" />
   </div>
 {/if}

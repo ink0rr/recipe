@@ -3,6 +3,7 @@
   import { getItem } from "$lib/utils/getItem";
   import { draggedItem } from "../stores/draggedItem";
   import { isPicking } from "../stores/isPicking";
+  import Texture from "./Texture.svelte";
 
   export let itemId: string | null = null;
   export let recipe = false;
@@ -68,13 +69,6 @@
   }}
 >
   {#if item}
-    <img
-      class="pointer-events-none"
-      style="image-rendering: pixelated;"
-      src={item.texture ?? "/missing.png"}
-      alt={item.name}
-      width="32px"
-      height="32px"
-    />
+    <Texture src={item.texture} alt={item.name} width="32px" height="32px" />
   {/if}
 </div>
