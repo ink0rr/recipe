@@ -19,6 +19,7 @@
   import {
     Button,
     ButtonGroup,
+    DarkMode,
     Input,
     InputAddon,
     Label,
@@ -63,6 +64,7 @@
     <div class="flex flex-col gap-y-2">
       <Section title="Recipe">
         <div class="px-4" slot="actions">
+          <DarkMode />
           <SettingsModal />
         </div>
         <Tabs style="underline" contentClass="flex flex-col p-2">

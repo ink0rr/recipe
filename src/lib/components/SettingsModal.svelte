@@ -1,19 +1,18 @@
 <script lang="ts">
   import { settings } from "$lib/stores/settings";
-  import { Button, Modal, Toggle } from "flowbite-svelte";
+  import { Modal, Toggle } from "flowbite-svelte";
 
   let open = false;
 </script>
 
-<Button
-  class="p-2"
-  color="alternative"
+<button
+  class="rounded-lg p-2.5 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
   on:click={() => {
     open = true;
   }}
 >
   <svg
-    class="h-4 w-4 text-gray-800 dark:text-white"
+    class="h-5 w-5"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -26,7 +25,7 @@
       <path d="M10 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
     </g>
   </svg>
-</Button>
+</button>
 
 <Modal title="Settings" bind:open outsideclose>
   <Toggle bind:checked={$settings.compact}>Compact Result Image</Toggle>
