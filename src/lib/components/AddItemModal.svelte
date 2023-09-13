@@ -4,7 +4,7 @@
   import type { Item } from "$lib/types/Item";
   import { fileToBase64 } from "$lib/utils/fileToBase64";
   import { Button, Modal } from "flowbite-svelte";
-  import { startCase } from "lodash-es";
+  import { snakeCase, startCase } from "lodash-es";
   import AddItemRow from "./AddItemRow.svelte";
 
   let open = false;
@@ -16,9 +16,10 @@
 
   async function updateItems(fileList: FileList) {
     for (const file of fileList) {
+      const fileName = snakeCase(file.name.replace(/.png$/, ""));
       items.push({
         name: "",
-        identifier: `${$settings.namespace || "custom"}:${file.name.replace(/.png$/, "")}`,
+        identifier: `${$settings.namespace || "custom"}:${fileName}`,
         texture: await fileToBase64(file),
       });
     }
