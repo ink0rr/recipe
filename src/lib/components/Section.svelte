@@ -8,10 +8,10 @@
   let open = true;
 </script>
 
-<section class="rounded-lg border bg-white shadow dark:border-gray-600 dark:bg-gray-800">
+<section class="rounded-lg border bg-white shadow dark:border-gray-700 dark:bg-gray-800">
   {#if collapsible}
     <button
-      class="flex w-full flex-row items-center justify-between rounded-t-lg border-b dark:border-gray-600"
+      class="flex w-full flex-row items-center justify-between rounded-t-lg border-b dark:border-gray-700"
       type="button"
       on:click={() => {
         open = !open;
@@ -28,7 +28,7 @@
     </button>
   {:else}
     <div
-      class="flex w-full flex-row items-center justify-between rounded-t-lg border-b dark:border-gray-600"
+      class="flex w-full flex-row items-center justify-between rounded-t-lg border-b dark:border-gray-700"
     >
       <h1 class="flex-1 p-4 text-left text-xl font-bold dark:text-white">{title}</h1>
       <slot name="actions" />
