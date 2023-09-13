@@ -8,27 +8,32 @@
   let open = true;
 </script>
 
-<section class="rounded-lg border bg-white shadow">
+<section class="rounded-lg border bg-white shadow dark:border-gray-600 dark:bg-gray-800">
   {#if collapsible}
     <button
-      class="flex w-full flex-row items-center justify-between rounded-t-lg border-b p-4"
+      class="flex w-full flex-row items-center justify-between rounded-t-lg border-b p-4 dark:border-gray-600"
       type="button"
       on:click={() => {
         open = !open;
       }}
     >
-      <h1 class="text-xl font-bold">{title}</h1>
-      <div class="-rotate-90 transition-transform duration-300" class:rotate-90={!open}>
+      <h1 class="text-xl font-bold dark:text-white">{title}</h1>
+      <div
+        class="-rotate-90 transition-transform duration-300 dark:text-white"
+        class:rotate-90={!open}
+      >
         <ChevronRight size="24px" variation="solid" />
       </div>
     </button>
   {:else}
-    <div class="rounded-t-lg border-b p-4">
-      <h1 class="text-xl font-bold">{title}</h1>
+    <div
+      class="flex w-full flex-row items-center justify-between rounded-t-lg border-b p-4 dark:border-gray-600"
+    >
+      <h1 class="text-xl font-bold dark:text-white">{title}</h1>
     </div>
   {/if}
   {#if open}
-    <div transition:slide={{ duration: 300 }}>
+    <div class="overflow-clip rounded-b-lg" transition:slide={{ duration: 300 }}>
       <slot />
     </div>
   {/if}
