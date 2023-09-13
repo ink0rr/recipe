@@ -2,7 +2,9 @@
   import { browser } from "$app/environment";
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
+  import AddItemModal from "$lib/components/AddItemModal.svelte";
   import DraggedItem from "$lib/components/DraggedItem.svelte";
+  import EditItemModal from "$lib/components/EditItemModal.svelte";
   import HighlightJson from "$lib/components/HighlightJson.svelte";
   import Inventory from "$lib/components/Inventory.svelte";
   import ItemSlot from "$lib/components/ItemSlot.svelte";
@@ -152,6 +154,10 @@
       <Inventory items={Object.keys(vanillaItems)} />
     </Section>
     <Section title="Custom Items">
+      <div class="flex flex-row gap-2 px-4" slot="actions">
+        <AddItemModal />
+        <EditItemModal />
+      </div>
       <Inventory items={Object.keys($customItems)} />
     </Section>
   </div>

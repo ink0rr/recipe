@@ -1,5 +1,7 @@
 <script lang="ts">
+  import { customItems } from "$lib/stores/customItems";
   import { tooltipText } from "$lib/stores/tooltipText";
+  import type { Item } from "$lib/types/Item";
   import { getItem } from "$lib/utils/getItem";
   import { draggedItem } from "../stores/draggedItem";
   import { isPicking } from "../stores/isPicking";
@@ -11,8 +13,11 @@
   export let disabled = false;
 
   let isHovered = false;
-
-  $: item = getItem(itemId);
+  let item: Item | null = null;
+  $: {
+    item = getItem(itemId);
+    $customItems; // Trigger reactivity when customItems changes
+  }
   $: {
     if (isHovered && item) {
       $tooltipText = item.name;
