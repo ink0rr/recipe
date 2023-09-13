@@ -77,13 +77,13 @@
   {#if items.length}
     <div class="overflow-x-auto">
       <table class="w-full">
-        <thead
-          class="bg-gray-100 text-left text-black dark:bg-gray-700 dark:text-white [&>*]:px-2 [&>*]:py-4 [&>*]:font-medium"
-        >
-          <th class="w-24 text-center">Texture</th>
-          <th class="min-w-[192px]">Identifier</th>
-          <th class="min-w-[192px]">Name</th>
-          <th class="w-12" />
+        <thead class="bg-gray-100 text-left text-black dark:bg-gray-700 dark:text-white">
+          <tr class="[&>*]:px-2 [&>*]:py-3 [&>*]:font-medium">
+            <th class="w-24 text-center">Texture</th>
+            <th class="min-w-[192px]">Identifier</th>
+            <th class="min-w-[192px]">Name</th>
+            <th class="w-12" />
+          </tr>
         </thead>
         <tbody class="gap text-black dark:text-white">
           {#each items as item}
