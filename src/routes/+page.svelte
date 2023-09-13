@@ -62,6 +62,9 @@
   <div class="flex-1 overflow-x-auto">
     <div class="flex flex-col gap-y-2">
       <Section title="Recipe">
+        <div class="px-4" slot="actions">
+          <SettingsModal />
+        </div>
         <Tabs style="underline" contentClass="flex flex-col p-2">
           <TabItem
             title="Crafting"
@@ -133,7 +136,6 @@
               <Button>Recipe Link</Button>
               <Button>Recipe Image</Button>
               <Button>Google Docs</Button>
-              <SettingsModal />
             </ButtonGroup>
           </div>
           <Button href="/json{$page.url.search}">Download</Button>
