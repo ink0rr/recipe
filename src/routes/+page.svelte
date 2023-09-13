@@ -80,15 +80,13 @@
                 {/each}
               </div>
             </RecipeArea>
-            <div class="p-2">
-              <Label>
-                Crafting Type
-                <Select class="mt-2" bind:value={recipe.mode}>
-                  <option value="shaped">Shaped</option>
-                  <option value="shaped_exact">Shaped Exact</option>
-                  <option value="shapeless">Shapeless</option>
-                </Select>
-              </Label>
+            <div class="flex flex-col gap-1 p-2">
+              <Label>Crafting Type</Label>
+              <Select bind:value={recipe.mode}>
+                <option value="shaped">Shaped</option>
+                <option value="shaped_exact">Shaped Exact</option>
+                <option value="shapeless">Shapeless</option>
+              </Select>
             </div>
           </TabItem>
           <TabItem
@@ -114,29 +112,29 @@
           </TabItem>
         </Tabs>
         <div class="flex flex-col gap-4 px-4 pb-4">
-          <Label>
-            Identifier
-            <ButtonGroup class="mt-2 w-full">
-              <Input placeholder={outputId ?? "identifier"} bind:value={recipe.identifier} />
-            </ButtonGroup>
-          </Label>
-          <Label>
-            File Name
-            <ButtonGroup class="mt-2 w-full">
+          <div class="flex flex-col gap-1">
+            <Label>Identifier</Label>
+            <Input placeholder={outputId ?? "identifier"} bind:value={recipe.identifier} />
+          </div>
+          <div class="flex flex-col gap-1">
+            <Label>File Name</Label>
+            <ButtonGroup>
               <Input
                 placeholder={outputId?.split(":")[1] ?? "file_name"}
                 bind:value={recipe.fileName}
               />
               <InputAddon>.json</InputAddon>
             </ButtonGroup>
-          </Label>
-          <div class="flex flex-col gap-2">
+          </div>
+          <div class="flex flex-col gap-1">
             <Label>Share</Label>
-            <ButtonGroup>
-              <Button>Recipe Link</Button>
-              <Button>Recipe Image</Button>
-              <Button>Google Docs</Button>
-            </ButtonGroup>
+            <div class="block">
+              <ButtonGroup>
+                <Button>Recipe Link</Button>
+                <Button>Recipe Image</Button>
+                <Button>Google Docs</Button>
+              </ButtonGroup>
+            </div>
           </div>
           <Button href="/json{$page.url.search}">Download</Button>
         </div>
