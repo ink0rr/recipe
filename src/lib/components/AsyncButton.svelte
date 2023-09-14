@@ -11,6 +11,7 @@
 </script>
 
 <Button
+  id="async-button"
   {disabled}
   on:click={async () => {
     disabled = true;
@@ -27,11 +28,11 @@
   }}
 >
   <slot />
+  <Tooltip class={showTooltip ? "" : "hidden"} trigger="click" triggeredBy="#async-button">
+    {#if showSuccess}
+      <CheckCircleOutline class="h-8 w-8 text-green-500 dark:text-green-600" />
+    {:else}
+      <Spinner />
+    {/if}
+  </Tooltip>
 </Button>
-<Tooltip class={showTooltip ? "" : "hidden"} trigger="click">
-  {#if showSuccess}
-    <CheckCircleOutline class="h-8 w-8 text-green-500 dark:text-green-600" />
-  {:else}
-    <Spinner />
-  {/if}
-</Tooltip>
