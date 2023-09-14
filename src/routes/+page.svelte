@@ -8,10 +8,10 @@
   import HighlightJson from "$lib/components/HighlightJson.svelte";
   import Inventory from "$lib/components/Inventory.svelte";
   import ItemSlot from "$lib/components/ItemSlot.svelte";
+  import ItemTooltip from "$lib/components/ItemTooltip.svelte";
   import RecipeArea from "$lib/components/RecipeArea.svelte";
   import Section from "$lib/components/Section.svelte";
   import SettingsModal from "$lib/components/SettingsModal.svelte";
-  import Tooltip from "$lib/components/Tooltip.svelte";
   import { createRecipe } from "$lib/core/recipe/createRecipe";
   import { serializeState } from "$lib/core/state";
   import { customItems } from "$lib/stores/customItems";
@@ -56,7 +56,7 @@
 />
 
 <DraggedItem />
-<Tooltip />
+<ItemTooltip />
 
 <div
   class="container mx-auto flex max-w-screen-lg flex-row-reverse flex-wrap justify-between gap-x-4 gap-y-2 p-4"
