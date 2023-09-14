@@ -105,7 +105,7 @@ async function furnaceImage(recipe: RecipeState) {
 export const GET: RequestHandler = async ({ url, setHeaders }) => {
   try {
     const param = url.searchParams.get("recipe")!;
-    const compact = url.searchParams.get("compact") === "true";
+    const compact = url.searchParams.has("compact") && url.searchParams.get("compact") !== "false";
     const recipe = deserializeState(param);
     const image =
       recipe.type === "crafting"

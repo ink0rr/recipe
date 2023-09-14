@@ -3,6 +3,7 @@
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import AddItemModal from "$lib/components/AddItemModal.svelte";
+  import AsyncButton from "$lib/components/AsyncButton.svelte";
   import DraggedItem from "$lib/components/DraggedItem.svelte";
   import EditItemModal from "$lib/components/EditItemModal.svelte";
   import HighlightJson from "$lib/components/HighlightJson.svelte";
@@ -16,6 +17,8 @@
   import { serializeState } from "$lib/core/state";
   import { customItems } from "$lib/stores/customItems";
   import { mouse } from "$lib/stores/mouse";
+  import { settings } from "$lib/stores/settings";
+  import { getGdocsBlob, getImageBlob } from "$lib/utils/blob";
   import { getItem } from "$lib/utils/getItem";
   import { vanillaItems } from "$lib/vanillaItems";
   import {
@@ -134,9 +137,37 @@
             <Label>Share</Label>
             <div class="block">
               <ButtonGroup>
-                <Button>Recipe Link</Button>
-                <Button>Recipe Image</Button>
-                <Button>Google Docs</Button>
+                <AsyncButton
+                  onClick={async () => {
+                    await navigator.clipboard.writeText(location.href);
+                  }}
+                >
+                  Recipe Link
+                </AsyncButton>
+                <AsyncButton
+                  onClick={async () => {
+                    const blob = await getImageBlob($settings.compact);
+                    await navigator.clipboard.write([
+                      new ClipboardItem({
+                        [blob.type]: blob,
+                      }),
+                    ]);
+                  }}
+                >
+                  Recipe Image
+                </AsyncButton>
+                <AsyncButton
+                  onClick={async () => {
+                    const blob = getGdocsBlob($settings.compact);
+                    await navigator.clipboard.write([
+                      new ClipboardItem({
+                        [blob.type]: blob,
+                      }),
+                    ]);
+                  }}
+                >
+                  Google Docs
+                </AsyncButton>
               </ButtonGroup>
             </div>
           </div>
