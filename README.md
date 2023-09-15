@@ -1,6 +1,6 @@
 # Bedrock Recipe Generator
 
-Crafting Recipe Generator for Minecraft Bedrock. **WIP**
+Recipe Generator for Minecraft Bedrock.
 
 ## Developing
 
