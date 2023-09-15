@@ -1,11 +1,10 @@
 import { createRecipe } from "$lib/core/recipe/createRecipe";
-import { deserializeState } from "$lib/core/state";
+import { loadRecipeState } from "$lib/core/recipe/state";
 import { error, type RequestHandler } from "@sveltejs/kit";
 
 export const GET: RequestHandler = async ({ url }) => {
   try {
-    const param = url.searchParams.get("recipe")!;
-    const recipe = deserializeState(param);
+    const recipe = loadRecipeState(url.searchParams);
     recipe.fileName ||= recipe.output?.replace(/.*:/, "") ?? "recipe";
     const data = JSON.stringify(createRecipe(recipe), null, 2) + "\n";
     return new Response(data, {

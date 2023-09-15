@@ -14,7 +14,7 @@
   import Section from "$lib/components/Section.svelte";
   import SettingsModal from "$lib/components/SettingsModal.svelte";
   import { createRecipe } from "$lib/core/recipe/createRecipe";
-  import { serializeState } from "$lib/core/state";
+  import { saveRecipeState } from "$lib/core/recipe/state";
   import { customItems } from "$lib/stores/customItems";
   import { mouse } from "$lib/stores/mouse";
   import { settings } from "$lib/stores/settings";
@@ -39,7 +39,7 @@
   const recipe = data.recipe;
 
   $: if (browser) {
-    goto(`/?recipe=${serializeState(recipe)}`, {
+    goto(`/?recipe=${saveRecipeState(recipe)}`, {
       keepFocus: true,
       noScroll: true,
       replaceState: true,
