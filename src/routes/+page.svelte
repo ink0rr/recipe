@@ -146,10 +146,9 @@
                 </AsyncButton>
                 <AsyncButton
                   onClick={async () => {
-                    const blob = await getImageBlob($settings.compact);
                     await navigator.clipboard.write([
                       new ClipboardItem({
-                        [blob.type]: blob,
+                        "image/png": getImageBlob($settings.compact),
                       }),
                     ]);
                   }}
@@ -158,10 +157,9 @@
                 </AsyncButton>
                 <AsyncButton
                   onClick={async () => {
-                    const blob = getGdocsBlob($settings.compact);
                     await navigator.clipboard.write([
                       new ClipboardItem({
-                        [blob.type]: blob,
+                        "text/html": getGdocsBlob($settings.compact),
                       }),
                     ]);
                   }}
