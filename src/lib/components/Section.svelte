@@ -8,7 +8,9 @@
   let open = true;
 </script>
 
-<section class="rounded-lg border bg-white shadow dark:border-gray-700 dark:bg-gray-800">
+<section
+  class="overflow-hidden rounded-lg border bg-white shadow dark:border-gray-700 dark:bg-gray-800"
+>
   {#if collapsible}
     <button
       class="flex w-full flex-row items-center justify-between rounded-t-lg border-b dark:border-gray-700"
