@@ -1,38 +1,45 @@
 <script lang="ts">
-  import { Button, Spinner, Tooltip } from "flowbite-svelte";
-  import { CheckCircleOutline } from "flowbite-svelte-icons";
+  import { Button, Spinner } from "flowbite-svelte";
+  import { CheckCircleOutline, XCircleOutline } from "flowbite-svelte-icons";
 
-  export let onClick: () => Promise<void>;
+  export let onClick: (event: MouseEvent) => Promise<void>;
   export let timeout: number = 1000;
 
   let disabled = false;
-  let showTooltip = false;
-  let showSuccess = false;
+  let state: "IDLE" | "LOADING" | "FAILED" | "SUCCESS" = "IDLE";
 </script>
 
 <Button
-  id="async-button"
+  class="disabled:bg-gray-100 disabled:opacity-100 dark:disabled:bg-gray-600"
   {disabled}
-  on:click={async () => {
+  on:click={async (event) => {
     disabled = true;
-    setTimeout(() => {
-      showTooltip = true; // ???
-    });
-    await onClick();
-    disabled = false;
-    showSuccess = true;
-    setTimeout(() => {
-      showTooltip = false;
-      showSuccess = false;
-    }, timeout);
+    state = "LOADING";
+    try {
+      await onClick(event);
+      state = "SUCCESS";
+    } catch {
+      state = "FAILED";
+    } finally {
+      setTimeout(() => {
+        disabled = false;
+        state = "IDLE";
+      }, timeout);
+    }
   }}
 >
-  <slot />
-  <Tooltip class={showTooltip ? "" : "hidden"} trigger="click" triggeredBy="#async-button">
-    {#if showSuccess}
-      <CheckCircleOutline class="h-8 w-8 text-green-500 dark:text-green-600" />
-    {:else}
-      <Spinner />
-    {/if}
-  </Tooltip>
+  <div class:invisible={disabled}>
+    <slot />
+  </div>
+  {#if state !== "IDLE"}
+    <div class="absolute [&>*]:pointer-events-none">
+      {#if state === "SUCCESS"}
+        <CheckCircleOutline class="text-green-500" />
+      {:else if state === "FAILED"}
+        <XCircleOutline class="text-red-500" />
+      {:else if state === "LOADING"}
+        <Spinner size="5" />
+      {/if}
+    </div>
+  {/if}
 </Button>
