@@ -1,12 +1,29 @@
+import { customItems } from "$lib/stores/customItems";
 import { decode, fromUint8Array, toUint8Array } from "js-base64";
 import { deflate, inflate } from "pako";
+import { get } from "svelte/store";
 import { z } from "zod";
 
-export function saveRecipeState(state: RecipeState) {
-  const json = JSON.stringify(state, (_, value) => (value === "" ? undefined : value));
-  const data = new TextEncoder().encode(json);
-  const compressed = deflate(data, { level: 9 });
-  return fromUint8Array(compressed, true);
+export function saveRecipeState(state: RecipeState, withTextures?: boolean) {
+  const params = new URLSearchParams();
+  const recipe = deflate(
+    JSON.stringify(state, (_, value) => (value === "" ? undefined : value)),
+    { level: 9 }
+  );
+  params.set("recipe", fromUint8Array(recipe));
+  if (withTextures) {
+    const textures: Record<string, string> = {};
+    for (const item of [state.input, state.output].flat()) {
+      if (!item) continue;
+      const texture = get(customItems)[item]?.texture;
+      if (texture) {
+        textures[item] = texture;
+      }
+    }
+    const items = deflate(JSON.stringify(textures), { level: 9 });
+    params.set("customItems", fromUint8Array(items));
+  }
+  return params;
 }
 
 export function loadRecipeState(params: URLSearchParams): RecipeState {

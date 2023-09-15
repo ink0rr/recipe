@@ -17,7 +17,6 @@
   import { saveRecipeState } from "$lib/core/recipe/state";
   import { customItems } from "$lib/stores/customItems";
   import { mouse } from "$lib/stores/mouse";
-  import { settings } from "$lib/stores/settings";
   import { getGdocsBlob, getImageBlob } from "$lib/utils/blob";
   import { getItem } from "$lib/utils/getItem";
   import { vanillaItems } from "$lib/vanillaItems";
@@ -39,7 +38,7 @@
   const recipe = data.recipe;
 
   $: if (browser) {
-    goto(`/?recipe=${saveRecipeState(recipe)}`, {
+    goto(`/?${saveRecipeState(recipe)}`, {
       keepFocus: true,
       noScroll: true,
       replaceState: true,
@@ -148,7 +147,7 @@
                   onClick={async () => {
                     await navigator.clipboard.write([
                       new ClipboardItem({
-                        "image/png": getImageBlob($settings.compact),
+                        "image/png": getImageBlob(recipe),
                       }),
                     ]);
                   }}
@@ -159,7 +158,7 @@
                   onClick={async () => {
                     await navigator.clipboard.write([
                       new ClipboardItem({
-                        "text/html": getGdocsBlob($settings.compact),
+                        "text/html": getGdocsBlob(recipe),
                       }),
                     ]);
                   }}
