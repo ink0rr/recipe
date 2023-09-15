@@ -17,7 +17,7 @@ export function getItem(itemId: string | null) {
   }
 
   return {
-    name: startCase(itemId),
+    name: startCase(itemId.split(":")[1] ?? itemId),
     identifier: itemId,
   };
 }
