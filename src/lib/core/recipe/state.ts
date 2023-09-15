@@ -8,7 +8,7 @@ export function saveRecipeState(state: RecipeState, withTextures?: boolean) {
   const params = new URLSearchParams();
   const recipe = deflate(
     JSON.stringify(state, (_, value) => (value === "" ? undefined : value)),
-    { level: 9 }
+    { level: 9 },
   );
   params.set("recipe", fromUint8Array(recipe));
   if (withTextures) {
@@ -84,5 +84,5 @@ const oldRecipeSchema = z
       mode: value.type,
       input: value.input,
       output: value.output,
-    })
+    }),
   );

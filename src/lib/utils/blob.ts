@@ -16,6 +16,6 @@ export function getGdocsBlob(recipe: RecipeState) {
     [
       `<meta charset="utf-8"><b><a href="${location.href}" style="text-decoration:none;"><span><span>&hairsp;<img src="${location.origin}/image?${params}"></span></span></a></b>`,
     ],
-    { type: "text/html" }
+    { type: "text/html" },
   );
 }
