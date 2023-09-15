@@ -3,7 +3,7 @@
   import { settings } from "$lib/stores/settings";
   import type { Item } from "$lib/types/Item";
   import { fileToBase64 } from "$lib/utils/fileToBase64";
-  import { Button, Modal } from "flowbite-svelte";
+  import { Alert, Button, Modal } from "flowbite-svelte";
   import { snakeCase, startCase } from "lodash-es";
   import AddItemRow from "./AddItemRow.svelte";
 
@@ -12,7 +12,7 @@
   let upload: HTMLInputElement;
   let files: FileList | undefined;
   let items: Item[] = [];
-  let invalidItems: boolean = true;
+  let invalidItems = true;
 
   async function updateItems(fileList: FileList) {
     for (const file of fileList) {
@@ -49,6 +49,12 @@
 </Button>
 
 <Modal title="Add Item(s)" bind:open>
+  {#if !$settings.namespace}
+    <Alert color="blue" class="dark:bg-blue-900">
+      <span class="font-medium">Tip:</span>
+      You can set a default namespace in <span class="font-medium">settings</span>.
+    </Alert>
+  {/if}
   <div class="flex flex-col gap-4">
     <div class="flex flex-row items-center gap-2">
       <Button
