@@ -1,6 +1,6 @@
 import type { Recipe, RecipeItem } from "../../types/recipe";
 import { getRecipeItem } from "../../utils/getRecipeItem";
-import type { RecipeState } from "../state";
+import type { RecipeState } from "./state";
 
 function findKey<T>(object: T, predicate: (value: T[keyof T]) => boolean) {
   for (const key in object) {

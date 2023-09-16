@@ -1,6 +1,6 @@
 import type { Recipe, RecipeItem } from "../../types/recipe";
 import { getRecipeItem } from "../../utils/getRecipeItem";
-import type { RecipeState } from "../state";
+import type { RecipeState } from "./state";
 
 function getIdentifier(item?: RecipeItem) {
   if (!item) return;

@@ -1,8 +1,8 @@
 import type { Recipe } from "../../types/recipe";
-import type { RecipeState } from "../state";
 import { recipeFurnace } from "./furnace";
 import { recipeShaped } from "./shaped";
 import { recipeShapeless } from "./shapeless";
+import type { RecipeState } from "./state";
 
 export function createRecipe(recipe: RecipeState): Recipe {
   if (recipe.type === "crafting") {
