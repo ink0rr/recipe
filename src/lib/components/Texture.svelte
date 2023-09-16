@@ -6,8 +6,10 @@
 </script>
 
 <img
-  class="pointer-events-none select-none"
+  class="pointer-events-none select-none object-contain"
   style="image-rendering: pixelated;"
+  style:width
+  style:height
   src={src ?? "/missing.png"}
   {alt}
   {width}
