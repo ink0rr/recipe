@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ChevronRight } from "flowbite-svelte";
+  import { ChevronRightSolid } from "flowbite-svelte-icons";
   import { slide } from "svelte/transition";
 
   export let title: string;
@@ -22,10 +22,11 @@
       <h1 class="flex-1 p-4 text-left text-xl font-bold dark:text-white">{title}</h1>
       <slot name="actions" />
       <div
-        class="-rotate-90 p-4 transition-transform duration-300 dark:text-white"
-        class:rotate-90={!open}
+        class="p-5 transition-transform duration-300 dark:text-white"
+        class:-rotate-90={!open}
+        class:rotate-90={open}
       >
-        <ChevronRight size="24px" variation="solid" />
+        <ChevronRightSolid class="pointer-events-none" size="sm" />
       </div>
     </button>
   {:else}
