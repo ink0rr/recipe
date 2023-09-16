@@ -4,7 +4,7 @@
 
 <style>
   div::-webkit-scrollbar {
-    min-width: 8px;
+    min-width: 12px;
     max-width: 16px;
   }
 

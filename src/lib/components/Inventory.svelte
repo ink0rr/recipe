@@ -18,7 +18,7 @@
   <Search bind:value={query} />
   <div class="rounded border-2 border-black bg-[#C6C6C6] py-4 pl-4 pr-3">
     <Scrollable>
-      <div class="flex max-h-[30vh] flex-row flex-wrap">
+      <div class="mr-2 flex max-h-[450px] flex-row flex-wrap">
         {#each result as item (item)}
           <ItemSlot itemId={item} />
         {/each}
