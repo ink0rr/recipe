@@ -2,6 +2,7 @@
   import { settings } from "$lib/stores/settings";
   import { Helper, Input, Label, Modal, Toggle } from "flowbite-svelte";
   import { CogOutline } from "flowbite-svelte-icons";
+  import { snakeCase } from "lodash-es";
   import IconButton from "./IconButton.svelte";
 
   let open = false;
@@ -9,10 +10,10 @@
   let invalidNamespace: string | false = false;
 
   $: if (!open) {
-    namespace = namespace.trim().toLowerCase();
+    namespace = snakeCase(namespace);
     $settings.namespace = namespace;
   }
-  $: if (namespace.match(/[ \W]/)) {
+  $: if (namespace && !namespace.match(/^[a-z](\w+)?$/)) {
     invalidNamespace = "Invalid namespace";
   } else {
     invalidNamespace = false;

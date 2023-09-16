@@ -12,7 +12,7 @@
   let upload: HTMLInputElement;
   let files: FileList | undefined;
   let items: Item[] = [];
-  let invalidItems = true;
+  let isInvalid = true;
 
   async function updateItems(fileList: FileList) {
     for (const file of fileList) {
@@ -34,9 +34,8 @@
       files = undefined;
     });
   }
-  $: invalidItems =
-    items.length === 0 ||
-    items.some((item) => !item.identifier || item.identifier.split(":").length !== 2);
+  $: isInvalid =
+    items.length === 0 || items.some((item) => !item.identifier.match(/^[a-z](\w+)?:[a-z](\w+)?$/));
 </script>
 
 <Button
@@ -107,7 +106,7 @@
   {/if}
   <svelte:fragment slot="footer">
     <Button
-      disabled={invalidItems}
+      disabled={isInvalid}
       on:click={() => {
         for (const item of items) {
           const identifier = item.identifier;
