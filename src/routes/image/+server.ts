@@ -82,7 +82,7 @@ async function craftingImage(
 
   result.composite(composites);
   if (compact) {
-    result.resize(224, 224, { ...resizeOptions, position: "left" });
+    result.resize(224, 224, { kernel: "nearest", position: "left" });
   }
   return result;
 }
