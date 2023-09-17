@@ -12,7 +12,7 @@ function getIdentifier(item?: RecipeItem) {
   return result;
 }
 
-export function recipeFurnace({ input, output, identifier }: RecipeState): Recipe {
+export function recipeFurnace({ input, output, identifier, tags }: RecipeState): Recipe {
   const inputItem = getRecipeItem(input[0]);
   const outputItem = getRecipeItem(output, 1);
   if (!identifier) {
@@ -24,7 +24,7 @@ export function recipeFurnace({ input, output, identifier }: RecipeState): Recip
       description: {
         identifier,
       },
-      tags: ["furnace"],
+      tags: tags ?? ["furnace"],
       input: getIdentifier(inputItem),
       output: getIdentifier(outputItem),
     },

@@ -1,4 +1,5 @@
 export type RecipeTag =
+  | (string & Record<never, never>)
   | "blast_furnace"
   | "brewing_stand"
   | "campfire"

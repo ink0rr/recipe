@@ -6,6 +6,7 @@
   import AsyncButton from "$lib/components/AsyncButton.svelte";
   import DraggedItem from "$lib/components/DraggedItem.svelte";
   import EditItemModal from "$lib/components/EditItemModal.svelte";
+  import FurnaceTags from "$lib/components/FurnaceTags.svelte";
   import HighlightJson from "$lib/components/HighlightJson.svelte";
   import Inventory from "$lib/components/Inventory.svelte";
   import ItemSlot from "$lib/components/ItemSlot.svelte";
@@ -76,7 +77,9 @@
             title="Crafting"
             open={recipe.type === "crafting"}
             on:click={() => {
+              if (recipe.type === "crafting") return;
               recipe.type = "crafting";
+              recipe.tags = undefined;
             }}
           >
             <RecipeArea title="Crafting" bind:output={recipe.output}>
@@ -99,6 +102,7 @@
             title="Furnace"
             open={recipe.type === "furnace"}
             on:click={() => {
+              if (recipe.type === "furnace") return;
               recipe.type = "furnace";
             }}
           >
@@ -115,6 +119,10 @@
                 <ItemSlot itemId="charcoal" disabled />
               </div>
             </RecipeArea>
+            <div class="flex flex-col gap-1 p-2">
+              <Label>Tags</Label>
+              <FurnaceTags bind:tags={recipe.tags} />
+            </div>
           </TabItem>
         </Tabs>
         <div class="flex flex-col gap-4 px-4 pb-4">

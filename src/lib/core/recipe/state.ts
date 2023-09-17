@@ -50,6 +50,7 @@ const recipeStateSchema = z.object({
   mode: z
     .union([z.literal("shaped"), z.literal("shaped_exact"), z.literal("shapeless"), z.null()])
     .default("shaped"),
+  tags: z.array(z.string()).optional(),
   identifier: z.string().optional(),
   fileName: z.string().optional(),
   input: z.array(z.string().or(z.null())).default([]),
