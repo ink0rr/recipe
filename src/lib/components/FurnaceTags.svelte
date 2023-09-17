@@ -10,7 +10,7 @@
     { name: "Campfire", value: "campfire" },
     { name: "Soul Campfire", value: "soul_campfire" },
   ];
-  let checked: Record<string, boolean> = {};
+  let checked: Record<string, boolean> = Object.fromEntries(tags?.map((key) => [key, true]) ?? []);
 
   $: selectedItems = items.filter(({ value }) => checked[value]);
   $: if (selectedItems.length) {
