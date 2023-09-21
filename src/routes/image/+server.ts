@@ -130,9 +130,10 @@ async function furnaceImage(recipe: RecipeState) {
 export const GET: RequestHandler = async ({ url, setHeaders }) => {
   try {
     const recipe = loadRecipeState(url.searchParams);
+    recipe.fileName ||= recipe.output?.replace(/.*:/, "") ?? "recipe";
     const compact = url.searchParams.get("compact") === "true";
     const customItems = loadCustomItems(url.searchParams);
-
+    const download = url.searchParams.get("download") === "true";
     let image: Sharp;
     if (recipe.type === "crafting") {
       image = await craftingImage(recipe, compact, customItems);
@@ -141,6 +142,7 @@ export const GET: RequestHandler = async ({ url, setHeaders }) => {
     }
     setHeaders({
       "Content-Type": "image/png",
+      "Content-Disposition": `${download ? "attachment; " : ""}filename=${recipe.fileName}.png`,
     });
     return new Response(await image.toBuffer());
   } catch {

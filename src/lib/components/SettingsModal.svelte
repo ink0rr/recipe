@@ -7,17 +7,12 @@
 
   let open = false;
   let namespace = $settings.namespace;
-  let invalidNamespace: string | false = false;
 
   $: if (!open) {
     namespace = snakeCase(namespace);
     $settings.namespace = namespace;
   }
-  $: if (namespace && !namespace.match(/^[a-z](\w+)?$/)) {
-    invalidNamespace = "Invalid namespace";
-  } else {
-    invalidNamespace = false;
-  }
+  $: invalidNamespace = namespace && !namespace.match(/^[a-z](\w+)?$/);
 </script>
 
 <IconButton
@@ -29,14 +24,21 @@
 </IconButton>
 
 <Modal title="Settings" size="sm" outsideclose bind:open>
-  <div class="flex flex-col gap-4">
-    <div class="flex flex-col gap-1">
-      <Label>Default Namespace</Label>
-      <Input color={invalidNamespace ? "red" : "base"} spellcheck="false" bind:value={namespace} />
-      {#if invalidNamespace}
-        <Helper color="red">{invalidNamespace}</Helper>
-      {/if}
+  <div class="flex flex-col">
+    <Label>Default Namespace</Label>
+    <Input
+      class="mt-1"
+      color={invalidNamespace ? "red" : "base"}
+      spellcheck="false"
+      bind:value={namespace}
+    />
+    {#if invalidNamespace}
+      <Helper class="mt-1" color="red">Invalid namespace</Helper>
+    {/if}
+    <Label class="mt-4">Result Image</Label>
+    <div class="mt-1 flex flex-col gap-2 px-2">
+      <Toggle bind:checked={$settings.compact}>Show recipe grid only</Toggle>
+      <Toggle bind:checked={$settings.downloadImage}>Download image</Toggle>
     </div>
-    <Toggle bind:checked={$settings.compact}>Compact Result Image</Toggle>
   </div>
 </Modal>

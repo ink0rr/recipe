@@ -18,6 +18,7 @@
   import { saveRecipeState } from "$lib/core/recipe/state";
   import { customItems } from "$lib/stores/customItems";
   import { mouse } from "$lib/stores/mouse";
+  import { settings } from "$lib/stores/settings";
   import { getGdocsBlob, getImageBlob } from "$lib/utils/blob";
   import { getItem } from "$lib/utils/getItem";
   import { vanillaItems } from "$lib/vanillaItems";
@@ -153,11 +154,15 @@
                 </AsyncButton>
                 <AsyncButton
                   onClick={async () => {
-                    await navigator.clipboard.write([
-                      new ClipboardItem({
-                        "image/png": getImageBlob(recipe),
-                      }),
-                    ]);
+                    if ($settings.downloadImage) {
+                      goto(`/image${$page.url.search}&download=true`);
+                    } else {
+                      await navigator.clipboard.write([
+                        new ClipboardItem({
+                          "image/png": getImageBlob(recipe),
+                        }),
+                      ]);
+                    }
                   }}
                 >
                   Recipe Image
