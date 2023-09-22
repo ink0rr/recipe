@@ -14,12 +14,12 @@
   import RecipeArea from "$lib/components/RecipeArea.svelte";
   import Section from "$lib/components/Section.svelte";
   import SettingsModal from "$lib/components/SettingsModal.svelte";
-  import { createRecipe } from "$lib/core/recipe/createRecipe";
+  import { gdocsBlob, imageBlob } from "$lib/core/blob";
+  import { createRecipe } from "$lib/core/recipe";
   import { saveRecipeState } from "$lib/core/recipe/state";
   import { customItems } from "$lib/stores/customItems";
   import { mouse } from "$lib/stores/mouse";
   import { settings } from "$lib/stores/settings";
-  import { getGdocsBlob, getImageBlob } from "$lib/utils/blob";
   import { getItem } from "$lib/utils/getItem";
   import { vanillaItems } from "$lib/vanillaItems";
   import {
@@ -38,6 +38,12 @@
   export let data: PageData;
 
   const recipe = data.recipe;
+
+  function getImageParams() {
+    const params = saveRecipeState(recipe, true);
+    params.set("compact", `${$settings.compact}`);
+    return params;
+  }
 
   $: if (browser) {
     goto(`/?${saveRecipeState(recipe)}`, {
@@ -154,12 +160,14 @@
                 </AsyncButton>
                 <AsyncButton
                   onClick={async () => {
+                    const params = getImageParams();
                     if ($settings.downloadImage) {
-                      goto(`/image${$page.url.search}&download=true`);
+                      params.set("download", `${$settings.downloadImage}`);
+                      location.href = `/image?${params}`;
                     } else {
                       await navigator.clipboard.write([
                         new ClipboardItem({
-                          "image/png": getImageBlob(recipe),
+                          "image/png": imageBlob(params),
                         }),
                       ]);
                     }
@@ -169,9 +177,10 @@
                 </AsyncButton>
                 <AsyncButton
                   onClick={async () => {
+                    const params = getImageParams();
                     await navigator.clipboard.write([
                       new ClipboardItem({
-                        "text/html": getGdocsBlob(recipe),
+                        "text/html": gdocsBlob(params),
                       }),
                     ]);
                   }}

@@ -1,6 +1,6 @@
-import type { Recipe, RecipeItem } from "../../types/recipe";
-import { getRecipeItem } from "../../utils/getRecipeItem";
-import type { RecipeState } from "./state";
+import type { Recipe, RecipeItem } from "$lib/types/recipe";
+import type { RecipeState } from "../state";
+import { getRecipeItem } from "../utils";
 
 function findKey<T>(object: T, predicate: (value: T[keyof T]) => boolean) {
   for (const key in object) {
@@ -11,7 +11,7 @@ function findKey<T>(object: T, predicate: (value: T[keyof T]) => boolean) {
   return undefined;
 }
 
-export function recipeShaped({ mode, input, output, identifier }: RecipeState): Recipe {
+export function shaped({ mode, input, output, identifier }: RecipeState): Recipe {
   const patternKeys = [..."#ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
   const key: Record<string, RecipeItem> = {};
   const grid = [

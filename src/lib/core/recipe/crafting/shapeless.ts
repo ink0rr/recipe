@@ -1,8 +1,8 @@
-import type { Recipe, RecipeItem } from "../../types/recipe";
-import { getRecipeItem } from "../../utils/getRecipeItem";
-import type { RecipeState } from "./state";
+import type { Recipe, RecipeItem } from "$lib/types/recipe";
+import type { RecipeState } from "../state";
+import { getRecipeItem } from "../utils";
 
-export function recipeShapeless({ input, output, identifier }: RecipeState): Recipe {
+export function shapeless({ input, output, identifier }: RecipeState): Recipe {
   const ingredients: RecipeItem[] = [];
 
   for (const id of input) {

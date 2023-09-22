@@ -1,6 +1,6 @@
-import type { Recipe, RecipeItem } from "../../types/recipe";
-import { getRecipeItem } from "../../utils/getRecipeItem";
+import type { Recipe, RecipeItem } from "$lib/types/recipe";
 import type { RecipeState } from "./state";
+import { getRecipeItem } from "./utils";
 
 function getIdentifier(item?: RecipeItem) {
   if (!item) return;
@@ -12,7 +12,7 @@ function getIdentifier(item?: RecipeItem) {
   return result;
 }
 
-export function recipeFurnace({ input, output, identifier, tags }: RecipeState): Recipe {
+export function furnace({ input, output, identifier, tags }: RecipeState): Recipe {
   const inputItem = getRecipeItem(input[0]);
   const outputItem = getRecipeItem(output, 1);
   if (!identifier) {

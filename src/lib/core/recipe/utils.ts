@@ -1,5 +1,5 @@
-import type { RecipeItem } from "../types/recipe";
-import { getItem } from "./getItem";
+import type { RecipeItem } from "$lib/types/recipe";
+import { getItem } from "$lib/utils/getItem";
 
 export function getRecipeItem(id: string | null, count?: number): RecipeItem | undefined {
   const item = getItem(id);

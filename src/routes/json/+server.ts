@@ -1,4 +1,4 @@
-import { createRecipe } from "$lib/core/recipe/createRecipe";
+import { createRecipe } from "$lib/core/recipe";
 import { loadRecipeState } from "$lib/core/recipe/state";
 import { error, type RequestHandler } from "@sveltejs/kit";
 

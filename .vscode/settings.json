@@ -2,6 +2,8 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.rulers": [100],
   "editor.tabSize": 2,
+  "editor.wordWrap": "wordWrapColumn",
+  "editor.wordWrapColumn": 100,
   "files.associations": {
     "*.css": "tailwindcss"
   },
