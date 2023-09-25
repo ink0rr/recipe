@@ -13,7 +13,7 @@ export function saveRecipeState(state: RecipeState, withTextures?: boolean) {
   params.set("recipe", fromUint8Array(recipe));
   if (withTextures) {
     const textures: Record<string, string> = {};
-    for (const item of [state.input, state.output].flat()) {
+    for (const item of [...state.input, state.output]) {
       if (!item) continue;
       const texture = get(customItems)[item]?.texture;
       if (texture) {
@@ -45,7 +45,7 @@ export function loadRecipeState(params: URLSearchParams): RecipeState {
   };
 }
 
-const recipeStateSchema = z.object({
+export const recipeStateSchema = z.object({
   type: z.union([z.literal("crafting"), z.literal("furnace")]),
   mode: z
     .union([z.literal("shaped"), z.literal("shaped_exact"), z.literal("shapeless"), z.null()])

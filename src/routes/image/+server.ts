@@ -1,38 +1,24 @@
 import { createRecipeImage } from "$lib/core/image";
-import { loadRecipeState } from "$lib/core/recipe/state";
+import { recipeStateSchema } from "$lib/core/recipe/state";
 import { customItems } from "$lib/stores/customItems";
+import { getRecipeFileName } from "$lib/utils/getRecipeFileName";
 import { error, type RequestHandler } from "@sveltejs/kit";
-import { toUint8Array } from "js-base64";
-import { inflate } from "pako";
+import { z } from "zod";
 
-function loadCustomItems(params: URLSearchParams) {
-  const customItems = params.get("customItems");
+export const POST: RequestHandler = async ({ url, request }) => {
   try {
-    const data = inflate(toUint8Array(customItems!), { to: "string" });
-    const entries = Object.entries(JSON.parse(data));
-    return Object.fromEntries(
-      entries.map(([id, texture]) => [
-        id,
-        {
-          name: id,
-          identifier: id,
-          texture,
-        },
-      ]),
-    );
-  } catch {
-    return {};
-  }
-}
+    const data = await request.json();
+    const recipe = recipeStateSchema.parse(data.recipe);
+    const fileName = getRecipeFileName(recipe);
 
-export const GET: RequestHandler = async ({ url }) => {
-  try {
-    const recipe = loadRecipeState(url.searchParams);
-    recipe.fileName ||= recipe.output?.replace(/.*:/, "") ?? "recipe";
-
-    customItems.update((items) => {
-      return Object.assign(items, loadCustomItems(url.searchParams));
+    const itemSchema = z.object({
+      name: z.string(),
+      identifier: z.string(),
+      data: z.number().optional(),
+      texture: z.string().optional(),
     });
+    customItems.set(z.record(itemSchema).parse(data.customItems));
+
     const compact = url.searchParams.get("compact") === "true";
     const download = url.searchParams.get("download") === "true";
     const image = await createRecipeImage(recipe, compact);
@@ -40,7 +26,7 @@ export const GET: RequestHandler = async ({ url }) => {
     return new Response(image, {
       headers: {
         "Content-Type": "image/png",
-        "Content-Disposition": `${download ? "attachment; " : ""}filename=${recipe.fileName}.png`,
+        "Content-Disposition": `${download ? "attachment; " : ""}filename=${fileName}.png`,
       },
     });
   } catch {

@@ -21,6 +21,7 @@
   import { mouse } from "$lib/stores/mouse";
   import { settings } from "$lib/stores/settings";
   import { getItem } from "$lib/utils/getItem";
+  import { getRecipeFileName } from "$lib/utils/getRecipeFileName";
   import { vanillaItems } from "$lib/vanillaItems";
   import {
     Button,
@@ -38,12 +39,6 @@
   export let data: PageData;
 
   const recipe = data.recipe;
-
-  function getImageParams() {
-    const params = saveRecipeState(recipe, true);
-    params.set("compact", `${$settings.compact}`);
-    return params;
-  }
 
   $: if (browser) {
     goto(`/?${saveRecipeState(recipe)}`, {
@@ -160,14 +155,18 @@
                 </AsyncButton>
                 <AsyncButton
                   onClick={async () => {
-                    const params = getImageParams();
                     if ($settings.downloadImage) {
-                      params.set("download", `${$settings.downloadImage}`);
-                      location.href = `/image?${params}`;
+                      const url = URL.createObjectURL(await imageBlob(recipe));
+                      const fileName = getRecipeFileName(recipe);
+                      const a = document.createElement("a");
+                      a.href = url;
+                      a.download = `${fileName}.png`;
+                      a.click();
+                      URL.revokeObjectURL(url);
                     } else {
                       await navigator.clipboard.write([
                         new ClipboardItem({
-                          "image/png": imageBlob(params),
+                          "image/png": imageBlob(recipe),
                         }),
                       ]);
                     }
@@ -177,10 +176,9 @@
                 </AsyncButton>
                 <AsyncButton
                   onClick={async () => {
-                    const params = getImageParams();
                     await navigator.clipboard.write([
                       new ClipboardItem({
-                        "text/html": gdocsBlob(params),
+                        "text/html": gdocsBlob(recipe),
                       }),
                     ]);
                   }}
