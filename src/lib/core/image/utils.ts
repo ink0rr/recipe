@@ -1,8 +1,7 @@
-import { customItems } from "$lib/stores/customItems";
+import type { Item } from "$lib/types/Item";
 import { getItem } from "$lib/utils/getItem";
 import { toUint8Array } from "js-base64";
 import sharp, { type ResizeOptions, type Sharp } from "sharp";
-import { get } from "svelte/store";
 
 export const resizeOptions: ResizeOptions = {
   background: "#00000000",
@@ -23,9 +22,9 @@ export class TextureList {
   #textures;
   #customItems;
 
-  constructor() {
+  constructor(customItems: Record<string, Item>) {
     this.#textures = new Map<string, Sharp>();
-    this.#customItems = get(customItems);
+    this.#customItems = customItems;
   }
 
   get(id: string) {

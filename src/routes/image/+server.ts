@@ -1,6 +1,5 @@
 import { createRecipeImage } from "$lib/core/image";
 import { recipeStateSchema } from "$lib/core/recipe/state";
-import { customItems } from "$lib/stores/customItems";
 import { getRecipeFileName } from "$lib/utils/getRecipeFileName";
 import { error, type RequestHandler } from "@sveltejs/kit";
 import { z } from "zod";
@@ -17,11 +16,11 @@ export const POST: RequestHandler = async ({ url, request }) => {
       data: z.number().optional(),
       texture: z.string().optional(),
     });
-    customItems.set(z.record(itemSchema).parse(data.customItems));
+    const customItems = z.record(itemSchema).parse(data.customItems);
 
     const compact = url.searchParams.get("compact") === "true";
     const download = url.searchParams.get("download") === "true";
-    const image = await createRecipeImage(recipe, compact);
+    const image = await createRecipeImage(recipe, customItems, compact);
 
     return new Response(image, {
       headers: {
