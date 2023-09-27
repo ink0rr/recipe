@@ -12,7 +12,7 @@
   $: {
     if (!item.identifier) {
       invalidIdentifier = "Identifier is required";
-    } else if (!item.identifier.match(/^[a-z](\w+)?:[a-z](\w+)?$/)) {
+    } else if (!item.identifier.match(/^\w+:[a-z](\w+)?$/)) {
       invalidIdentifier = "Invalid identifier";
     } else {
       invalidIdentifier = false;

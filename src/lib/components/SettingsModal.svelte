@@ -12,7 +12,7 @@
     namespace = snakeCase(namespace);
     $settings.namespace = namespace;
   }
-  $: invalidNamespace = namespace && !namespace.match(/^[a-z](\w+)?$/);
+  $: invalidNamespace = namespace && !namespace.match(/^\w+$/);
 </script>
 
 <IconButton

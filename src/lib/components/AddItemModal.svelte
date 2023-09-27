@@ -35,7 +35,7 @@
     });
   }
   $: isInvalid =
-    items.length === 0 || items.some((item) => !item.identifier.match(/^[a-z](\w+)?:[a-z](\w+)?$/));
+    items.length === 0 || items.some((item) => !item.identifier.match(/^\w+:[a-z](\w+)?$/));
 </script>
 
 <Button
