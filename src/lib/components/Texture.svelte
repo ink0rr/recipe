@@ -14,4 +14,5 @@
   {alt}
   {width}
   {height}
+  loading="lazy"
 />
