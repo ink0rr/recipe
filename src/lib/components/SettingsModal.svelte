@@ -20,7 +20,7 @@
     open = true;
   }}
 >
-  <CogOutline />
+  <CogOutline tabindex="-1" />
 </IconButton>
 
 <Modal title="Settings" size="sm" outsideclose bind:open>
