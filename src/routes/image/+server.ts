@@ -29,6 +29,6 @@ export const POST: RequestHandler = async ({ url, request }) => {
       },
     });
   } catch {
-    throw error(400, { message: "Invalid recipe." });
+    error(400, { message: "Invalid recipe." });
   }
 };

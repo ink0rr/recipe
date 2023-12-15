@@ -12,8 +12,9 @@
     "format": "prettier --write ."
   },
   "devDependencies": {
-    "@sveltejs/adapter-auto": "^2.1.1",
-    "@sveltejs/kit": "^1.30.3",
+    "@sveltejs/adapter-auto": "^3.0.0",
+    "@sveltejs/kit": "^2.0.0",
+    "@sveltejs/vite-plugin-svelte": "^3.0.1",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^20.10.4",
     "@types/pako": "^2.0.3",
@@ -32,7 +33,7 @@
     "tailwindcss": "^3.3.6",
     "tslib": "^2.6.2",
     "typescript": "^5.3.3",
-    "vite": "^4.5.1"
+    "vite": "^5.0.9"
   },
   "dependencies": {
     "@vercel/analytics": "^1.1.1",
