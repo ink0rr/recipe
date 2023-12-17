@@ -3,4 +3,6 @@ import { inject } from "@vercel/analytics";
 import { injectSpeedInsights } from "@vercel/speed-insights";
 
 inject({ mode: dev ? "development" : "production" });
-injectSpeedInsights({});
+if (!dev) {
+  injectSpeedInsights({});
+}
