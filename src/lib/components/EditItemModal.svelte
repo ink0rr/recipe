@@ -18,6 +18,16 @@
 </Button>
 
 <Modal title="Edit Item(s)" bind:open>
+  <Button
+    color="red"
+    on:click={() => {
+      if (confirm("Delete all items?")) {
+        customItems.set({});
+      }
+    }}
+  >
+    Delete All
+  </Button>
   <div class="overflow-x-auto">
     <table class="w-full">
       <thead class="bg-gray-100 text-left text-black dark:bg-gray-700 dark:text-white">
