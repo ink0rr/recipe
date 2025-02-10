@@ -1,4 +1,5 @@
 import { customItems } from "$lib/stores/customItems";
+import { settings } from "$lib/stores/settings";
 import { fromUint8Array } from "js-base64";
 import { get } from "svelte/store";
 import type { RecipeState } from "./recipe/state";
@@ -7,8 +8,9 @@ function fetchRecipeImage(recipe: RecipeState) {
   const itemIds = new Set([...recipe.input, recipe.output]);
   const entries = [...itemIds].map((id) => [id, get(customItems)[id!]]);
   const items = Object.fromEntries(entries);
+  const params = new URLSearchParams({ compact: `${get(settings).compact}` });
 
-  return fetch(`/image`, {
+  return fetch(`/image?${params}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
