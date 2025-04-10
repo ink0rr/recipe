@@ -38,14 +38,10 @@
 
   export let data: PageData;
 
-  const recipe = data.recipe;
+  let recipe = data.recipe;
 
   $: if (browser) {
-    goto(`/?${saveRecipeState(recipe)}`, {
-      keepFocus: true,
-      noScroll: true,
-      replaceState: true,
-    });
+    goto(`/?${saveRecipeState(recipe)}`, { keepFocus: true, noScroll: true, replaceState: true });
   }
 
   $: outputId = getItem(recipe.output)?.identifier;
@@ -53,10 +49,7 @@
 
 <svelte:window
   on:mousemove={({ clientX, clientY }) => {
-    $mouse = {
-      x: clientX,
-      y: clientY,
-    };
+    $mouse = { x: clientX, y: clientY };
   }}
 />
 
@@ -84,7 +77,7 @@
               recipe.tags = undefined;
             }}
           >
-            <RecipeArea title="Crafting" bind:output={recipe.output}>
+            <RecipeArea title="Crafting" bind:recipe>
               <div class="grid grid-cols-3 grid-rows-3">
                 {#each Array(9).keys() as i (i)}
                   <ItemSlot bind:itemId={recipe.input[i]} recipe />
@@ -108,7 +101,7 @@
               recipe.type = "furnace";
             }}
           >
-            <RecipeArea title="Furnace" centered bind:output={recipe.output}>
+            <RecipeArea title="Furnace" centered bind:recipe>
               <div class="flex flex-col items-center gap-y-2">
                 <ItemSlot bind:itemId={recipe.input[0]} recipe />
                 <img
@@ -165,9 +158,7 @@
                       URL.revokeObjectURL(url);
                     } else {
                       await navigator.clipboard.write([
-                        new ClipboardItem({
-                          "image/png": imageBlob(recipe),
-                        }),
+                        new ClipboardItem({ "image/png": imageBlob(recipe) }),
                       ]);
                     }
                   }}
@@ -177,9 +168,7 @@
                 <AsyncButton
                   onClick={async () => {
                     await navigator.clipboard.write([
-                      new ClipboardItem({
-                        "text/html": gdocsBlob(recipe),
-                      }),
+                      new ClipboardItem({ "text/html": gdocsBlob(recipe) }),
                     ]);
                   }}
                 >
