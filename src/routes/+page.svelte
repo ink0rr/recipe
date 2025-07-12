@@ -74,6 +74,9 @@
             on:click={() => {
               if (recipe.type === "crafting") return;
               recipe.type = "crafting";
+              if (!recipe.mode || recipe.mode === null) {
+                recipe.mode = "shaped";
+              }
               recipe.tags = undefined;
             }}
           >
@@ -118,6 +121,22 @@
               <Label>Tags</Label>
               <FurnaceTags bind:tags={recipe.tags} />
             </div>
+          </TabItem>
+          <TabItem
+            title="Stonecutter"
+            open={recipe.type === "stonecutter"}
+            on:click={() => {
+              if (recipe.type === "stonecutter") return;
+              recipe.type = "stonecutter";
+              recipe.mode = "shapeless";
+              recipe.tags = undefined;
+            }}
+          >
+            <RecipeArea title="Stonecutter" centered bind:recipe>
+              <div class="flex flex-col items-center gap-y-6">
+                <ItemSlot bind:itemId={recipe.input[0]} recipe />
+              </div>
+            </RecipeArea>
           </TabItem>
         </Tabs>
         <div class="flex flex-col gap-4 px-4 pb-4">
