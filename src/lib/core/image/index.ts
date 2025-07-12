@@ -3,6 +3,7 @@ import type { Sharp } from "sharp";
 import type { RecipeState } from "../recipe/state";
 import { crafting } from "./crafting";
 import { furnace } from "./furnace";
+import { stonecutter } from "./stonecutter";
 
 export async function createRecipeImage(
   recipe: RecipeState,
@@ -16,6 +17,9 @@ export async function createRecipeImage(
       break;
     case "furnace":
       image = await furnace(recipe, customItems);
+      break;
+    case "stonecutter":
+      image = await stonecutter(recipe, customItems);
       break;
   }
   return image.toBuffer();
