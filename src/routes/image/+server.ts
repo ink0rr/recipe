@@ -22,7 +22,7 @@ export const POST: RequestHandler = async ({ url, request }) => {
     const download = url.searchParams.get("download") === "true";
     const image = await createRecipeImage(recipe, customItems, compact);
 
-    return new Response(new Uint8Array(image), {
+    return new Response(image, {
       headers: {
         "Content-Type": "image/png",
         "Content-Disposition": `${download ? "attachment; " : ""}filename=${fileName}.png`,

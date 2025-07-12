@@ -72,12 +72,7 @@
             title="Crafting"
             open={recipe.type === "crafting"}
             on:click={() => {
-              if (recipe.type === "crafting") return;
               recipe.type = "crafting";
-              if (!recipe.mode || recipe.mode === null) {
-                recipe.mode = "shaped";
-              }
-              recipe.tags = undefined;
             }}
           >
             <RecipeArea title="Crafting" bind:recipe>
@@ -100,7 +95,6 @@
             title="Furnace"
             open={recipe.type === "furnace"}
             on:click={() => {
-              if (recipe.type === "furnace") return;
               recipe.type = "furnace";
             }}
           >
@@ -126,14 +120,11 @@
             title="Stonecutter"
             open={recipe.type === "stonecutter"}
             on:click={() => {
-              if (recipe.type === "stonecutter") return;
               recipe.type = "stonecutter";
-              recipe.mode = "shapeless";
-              recipe.tags = undefined;
             }}
           >
             <RecipeArea title="Stonecutter" centered bind:recipe>
-              <div class="flex flex-col items-center gap-y-6">
+              <div class="flex flex-col items-center pt-2">
                 <ItemSlot bind:itemId={recipe.input[0]} recipe />
               </div>
             </RecipeArea>
