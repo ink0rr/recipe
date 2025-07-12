@@ -46,7 +46,7 @@ export function loadRecipeState(params: URLSearchParams): RecipeState {
 }
 
 export const recipeStateSchema = z.object({
-  type: z.union([z.literal("crafting"), z.literal("furnace")]),
+  type: z.union([z.literal("crafting"), z.literal("furnace"), z.literal("stonecutter")]),
   mode: z
     .union([z.literal("shaped"), z.literal("shaped_exact"), z.literal("shapeless"), z.null()])
     .default("shaped"),

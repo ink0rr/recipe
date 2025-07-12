@@ -72,9 +72,7 @@
             title="Crafting"
             open={recipe.type === "crafting"}
             on:click={() => {
-              if (recipe.type === "crafting") return;
               recipe.type = "crafting";
-              recipe.tags = undefined;
             }}
           >
             <RecipeArea title="Crafting" bind:recipe>
@@ -97,7 +95,6 @@
             title="Furnace"
             open={recipe.type === "furnace"}
             on:click={() => {
-              if (recipe.type === "furnace") return;
               recipe.type = "furnace";
             }}
           >
@@ -118,6 +115,19 @@
               <Label>Tags</Label>
               <FurnaceTags bind:tags={recipe.tags} />
             </div>
+          </TabItem>
+          <TabItem
+            title="Stonecutter"
+            open={recipe.type === "stonecutter"}
+            on:click={() => {
+              recipe.type = "stonecutter";
+            }}
+          >
+            <RecipeArea title="Stonecutter" centered bind:recipe>
+              <div class="flex flex-col items-center pt-2">
+                <ItemSlot bind:itemId={recipe.input[0]} recipe />
+              </div>
+            </RecipeArea>
           </TabItem>
         </Tabs>
         <div class="flex flex-col gap-4 px-4 pb-4">
