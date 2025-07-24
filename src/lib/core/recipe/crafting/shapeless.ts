@@ -31,6 +31,9 @@ export function shapeless({ input, output, identifier }: RecipeState): Recipe {
       tags: ["crafting_table"],
       ingredients,
       result,
+      unlock: {
+        context: "AlwaysUnlocked",
+      },
     },
   };
 }

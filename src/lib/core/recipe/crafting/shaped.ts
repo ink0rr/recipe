@@ -66,6 +66,9 @@ export function shaped({ mode, input, output, identifier }: RecipeState): Recipe
       pattern,
       key,
       result,
+      unlock: {
+        context: "AlwaysUnlocked",
+      },
     },
   };
 }

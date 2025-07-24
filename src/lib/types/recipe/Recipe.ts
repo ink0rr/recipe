@@ -1,5 +1,6 @@
 import type { RecipeItem } from "./RecipeItem";
 import type { RecipeTag } from "./RecipeTag";
+import type { RecipeUnlock } from "./RecipeUnlock";
 
 interface BaseRecipe {
   description: {
@@ -10,6 +11,7 @@ interface BaseRecipe {
    * Defines where this recipe can be made.
    */
   tags?: RecipeTag[];
+  unlock?: RecipeUnlock;
 }
 
 export interface RecipeBrewing extends BaseRecipe {

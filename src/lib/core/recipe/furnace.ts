@@ -27,6 +27,9 @@ export function furnace({ input, output, identifier, tags }: RecipeState): Recip
       tags: tags ?? ["furnace"],
       input: getIdentifier(inputItem),
       output: getIdentifier(outputItem),
+      unlock: {
+        context: "AlwaysUnlocked",
+      },
     },
   };
 }
